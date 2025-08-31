@@ -5,9 +5,9 @@
 # Project and case definition
 PROJECT	          = Theoretical
 CASE              = Theoretical
-RUNFILE 	        = runtracmass
+RUNFILE 	      = runtracmass
 ARCH              =
-NETCDFLIBS        = none
+NETCDFLIBS        = automatic-44
 #================================================================
 
 # Possible architectures:

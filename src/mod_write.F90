@@ -222,12 +222,13 @@ MODULE mod_write
                    ( write_frec == 2 .AND. ABS(tss-DBLE(INT(tss)))<1e-11 .AND. ints == NINT(ts)) .OR. &
                    ( write_frec == 3 .AND. (.not.scrivi .OR. boxface>0) ) .OR. &
                    ( write_frec == 4 ) .OR. &
+                   ( write_frec == 6 .AND. (trajectories(ntrac)%niter == niter-1) .OR. (.not.scrivi .OR. boxface>0) ) .OR. &
                    ( write_frec == 2 .AND. tt == 0.d0)) THEN
 
                   ! If postprocessing is activated
                   nsavewrite(ntrac) = nsavewrite(ntrac) + 1
 
-                  IF (write_frec == 1) THEN
+                  IF ((write_frec == 1) .OR. (write_frec == 6)) THEN
                         xw = x0; yw = y0; zw = z0
                   ELSE
                         xw = x1; yw = y1; zw = z1
@@ -251,7 +252,7 @@ MODULE mod_write
                       CASE(0)
                       ! Include time - tt in seconds
                       tout = nff*tt
-                      IF (write_frec == 1) tout = nff*(tt-dt)
+                      IF ((write_frec == 1) .OR. (write_frec == 6)) tout = nff*(tt-dt)
 
                       IF (l_tracers) THEN
                           CALL writeformat(timeformat)
@@ -265,7 +266,7 @@ MODULE mod_write
                       CASE(1)
                       ! Include time - Fraction ts
                       tout = nff*ts
-                      IF (write_frec == 1) tout = nff*(ts-dts)
+                      IF ((write_frec == 1) .OR. (write_frec == 6)) tout = nff*(ts-dts)
 
                       IF (l_tracers) THEN
                           CALL writeformat(timeformat)
@@ -278,7 +279,7 @@ MODULE mod_write
 
                       CASE(2)
                       ! Include time - YYYY MM DD HH MM SS
-                      IF (write_frec == 1) THEN
+                      IF ((write_frec == 1) .OR. (write_frec == 6)) THEN
                         CALL tt_calendar(nff*REAL(NINT(tt - dt),8))
                       ELSE
                         CALL tt_calendar(nff*REAL(NINT(tt),8))
