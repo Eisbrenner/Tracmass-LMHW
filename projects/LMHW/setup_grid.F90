@@ -42,10 +42,10 @@ SUBROUTINE setup_grid
 
   DO jj = 1, jmt
      DO ii = 1, imt
-        dx = dlon*deg*COS((Tminlat.+0.5*dlat+dlat*(jj - 0.5))*radian)
+        dx = dlon*deg*COS((Tminlat+0.5*dlat+dlat*(jj - 0.5))*radian)
         dy = dlat*deg
 
-        dxv(ii, jj) = dlon*deg*COS((Tminlat.+0.5*dlat+dlat*jj)*radian)
+        dxv(ii, jj) = dlon*deg*COS((Tminlat+0.5*dlat+dlat*jj)*radian)
         dyu(ii, jj) = dy
 
         dxdy(ii, jj) = dx*dy
