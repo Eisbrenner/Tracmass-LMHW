@@ -42,7 +42,7 @@ imt = 117,
 !* number of global j points
 jmt = 116,
 !* number of global k points
-km = 31,
+km = 18,
 
 !* zonal periodic
 iperio = 0
