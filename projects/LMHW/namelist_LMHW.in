@@ -1,145 +1,197 @@
 &INIT_GRID_DESCRIPTION
-      ! Direction of the grid (1 - E->W, S->N, B->U)
-      griddir = 1,1,1
+! Direction of the grid (1 - E->W, S->N, B->U)
+griddir = 1,1,1
 
-      ! Does the netcdf data start with a zero index?
-      zeroindx = .FALSE.
+! Does the netcdf data start with a zero index?
+zeroindx = .FALSE.
 
-      ! Describe filenames
-      physDataDir    = '',                            ! directory of physical data (u,v,T,S,MLD,etc)
-      physPrefixForm = '',
-      dateformat     = 'YYYY_MM'
-      tGridName      = '_thetao',                     ! name of Tgrid, e.g. grid_T
-      uGridName      = '_uo',                         ! name of Ugrid
-      vGridName      = '_vo',                         ! name of Vgrid
+! Describe filenames
 
-      fileSuffix     = '.nc',                         ! suffix of files, e.g. ".nc"
+! directory of physical data (u,v,T,S,MLD,etc)
+physDataDir = '',
+physPrefixForm = '',
+dateformat = 'YYYY_MM'
 
-      ! Describe variable names
-      ueul_name      = 'uo',                          ! name of resolved zonal velocity
-      veul_name      = 'vo',                          ! ---- " -------   meridional
+! name of Tgrid, e.g. grid_T
+tGridName = '_thetao',
+
+! name of Ugrid
+uGridName = '_uo',
+
+! name of Vgrid
+vGridName = '_vo',
+
+! suffix of files, e.g. ".nc"
+fileSuffix = '.nc',
+
+! Describe variable names
+! name of resolved zonal velocity
+ueul_name = 'uo',
+! name of resolved meridional velocity
+veul_name = 'vo',
 /
 
 &INIT_GRID_SIZE
-     	! Size of global grid
-     	imt            = 117,                           ! number of global i points
-     	jmt            = 116,                           ! number of global j points
-     	km             = 31,                            ! number of global k points
+! Size of global grid
+! number of global i points
+imt = 117,
+! number of global j points
+jmt = 116,
+! number of global k points
+km = 31,
 
-      iperio  = 0                                     ! zonal periodic
-      jperio  = 0                                     ! meridional boundary conditions
+! zonal periodic
+iperio = 0
+! meridional boundary conditions
+jperio = 0
 
-      topoDataDir    = '',                            ! directory of grid data
-      zgridFile      = 'zgrid.txt'                    ! file with dz etc.
+! directory of grid data
+topoDataDir = '',
+
+! file with dz etc.
+zgridFile = 'zgrid.txt'
 /
 
 &INIT_GRID_SUBDOMAIN
-     l_subdom    = .FALSE.                            ! Initialise subdomain
+! Initialise subdomain
+l_subdom = .FALSE.
 /
 
 &INIT_GRID_TIME
-     ngcm_step      = 1,                              ! time between two time levels
-                                                      ! if ncgcm_unit = 5, then ngcm_step = 3 means 3 months
-     ngcm_unit      = 4,                              ! units of ngcm
-                                                      !
-     iter           = 48,                             ! number of subcycles between time levels
+! time between two time levels
+! if ncgcm_unit = 5, then ngcm_step = 3 means 3 months
+ngcm_step = 1,
+
+! units of ngcm
+ngcm_unit = 4,
+
+! number of subcycles between time levels
+iter = 48,
 /
 
 &INIT_START_DATE
-     startsec       = 0,                              ! start time
-     startmin       = 0,
-     starthour      = 0,
-     startday       = 23,                             ! start date
-     startmon       = 9,
-     startyear      = 2005,
-     noleap         = .FALSE.,                        ! don't use leap years?
-     mon30day       = .FALSE.
+! start time
+startsec = 0,
+startmin = 0,
+starthour = 0,
+
+! start date
+startday = 23,
+startmon = 9,
+startyear = 2005,
+
+! don't use leap years?
+noleap = .FALSE.,
+
+mon30day = .FALSE.
 /
 
 &INIT_RUN_TIME
-     ! Loop run
-     loopYears      = .FALSE.,                        ! make a time loop to run
+! Loop run
+! make a time loop to run
+loopYears = .FALSE.,
 
-     ! Verbose
-     log_level    = 0
+! Verbose
+log_level = 0
 
-     ! Information of run time
-     intrun         = 400                             ! number of time steps for run
+! Information of run time
+! number of time steps for run
+intrun = 400
 /
 
 &INIT_WRITE_TRAJ
-     write_frec    = 6     ! 1 = write at time intervals of gcm datasets (each ints)
-                           ! 2 = write at each time iteration
-                           ! 3 = write each spatial grid-crossing
-                           ! 4 = write all the time steps
-                           ! 5 = write only start and end positions
-                           ! 6 = write (1) at time intervals of gcm datasets and (4) each spatial grid-crossing
 
+! write_frec = 1 - write at time intervals of gcm datasets (each ints)
+!            = 2 - write at each time iteration
+!            = 3 - write each spatial grid-crossing
+!            = 4 - write all the time steps
+!            = 5 - write only start and end positions
+!            = 6 - write (1) at time intervals of gcm datasets and (4) each spatial grid-crossing
+write_frec = 6
 
-     outDataDir    = '',
-     outDataFile   = '',
+outDataDir = '',
+outDataFile = '',
 
-     timeformat    = 1     ! Format of the time array
-                           ! 0 - tt / 1 - ts / 2 - YYYY, MM, DD, HH
+! Format of the time array
+! timeformat = 0 - tt
+!            = 1 - ts
+!            = 2 - YYYY, MM, DD, HH
+timeformat = 1
 /
 
 &INIT_SEEDING
-      nff            = -1,                            ! = 1 run forward trajectories
-          		      					! = -1 run backwards
-      isec           = 2,				      ! = 1 start on zonal cell wall
-          		      					! = 2 start on meridional cell wall
-     							            ! = 3 start on vertical wall
-      idir           = 0, 				      ! = 1 start only when flux > 0
-          		      					! = -1      only when flux < 0
-     	nqua           = 2,					! number of trajectories can be set by
-     									! = 1 constant number of particles in all seeding cells
-     									!     set by partQuant (particles / gridcell)
-     									! = 2 Each particle reflects mass transport at seeding.
-     									!     set by partQuant (m3/s or kg/s per particle)
-     									! = 3 Each particle reflects air/water mass/volume at seeding.
-     									!     set by partQuant in m3 or kg per particle
-      partquant      = 200,                           ! particles/gridcell or m3s-1/particle or m3/particle
-      
-      loneparticle   = 0, 				      ! start only one trajectory for debugging
+! nff = 1 run forward trajectories
+!     = -1 run backwards
+nff = -1,
 
-      seedtype       = 2,				      ! = 1 seed using ist,jst,kst (below)
-          		      					! = 2 seed using file with start positions
+! isec = 1 start on zonal cell wall
+!      = 2 start on meridional cell wall
+!      = 3 start on vertical wall
+isec = 2,
 
-      ! when seedtype = 2
-      seeddir        = '',				      ! directory for seed files
-      seedfile       = 'seeds.txt',				! name of seed file
+! indir = 1 start only when flux > 0
+!       = -1      only when flux < 0
+idir = 0,
 
-      seedtime       =  1,				      ! = 1 seed only for specific times
-                                                      ! = 2 seed using file with start positions
+! nqua: number of trajectories can be set by
+! = 1 constant number of particles in all seeding cells
+!     set by partQuant (particles / gridcell)
+! = 2 Each particle reflects mass transport at seeding.
+!     set by partQuant (m3/s or kg/s per particle)
+! = 3 Each particle reflects air/water mass/volume at seeding.
+!     set by partQuant in m3 or kg per particle
+nqua = 2,
 
-      ! when seedtime = 1
-      tst1           = 1,				      ! seed only between tst1 and tst2
-      tst2           = 3,
+! particles/gridcell or m3s-1/particle or m3/particle
+partquant = 200,
+
+! start only one trajectory for debugging
+loneparticle = 0,
+
+! seedtype = 1 seed using ist,jst,kst (below)
+!          = 2 seed using file with start positions
+seedtype = 2,
+
+! when seedtype = 2
+seeddir = '', ! directory for seed files
+seedfile = 'seeds.txt', ! name of seed file
+
+! seedtime = 1 seed only for specific times
+!          = 2 seed using file with start positions
+seedtime =  1,
+
+! when seedtime = 1
+! seed only between tst1 and tst2
+tst1 = 1,
+tst2 = 3,
 /
 
 &INIT_TRACERS
-      l_tracers = .FALSE.                             ! Should we evaluate tracers along the trajectories?
+! Should we evaluate tracers along the trajectories?
+l_tracers = .FALSE.
 /
 
 &INIT_TRACERS_SEEDING
 /
 
 &INIT_KILLZONES
-      timax = 365 ! time limit for traj [days]
+! time limit for traj [days]
+timax = 365
 
-      exitType = 1
-      ! If exitType = 1: killing zone defined by a box
-      ! IMPORTANT -> The maximum number of boxes than can be defined are 10
-      ! ienw,iene are western and eastern i indices of killzone
-      ! jens,jenn are southern and northern j indices of killzone
-      ienw = 2
-      iene = 116
-      jens = 2
-      jenn = 115
+exitType = 1
+! If exitType = 1: killing zone defined by a box
+! IMPORTANT -> The maximum number of boxes than can be defined are 10
+! ienw,iene are western and eastern i indices of killzone
+! jens,jenn are southern and northern j indices of killzone
+ienw = 2
+iene = 116
+jens = 2
+jenn = 115
 /
 
 &INIT_POSTPROCESS
-      l_psi      = .FALSE.                            ! Compute stream Functions
+! Compute stream Functions
+l_psi = .FALSE.
 /
 
 &INIT_ACTIVE
