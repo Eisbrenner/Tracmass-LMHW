@@ -100,7 +100,7 @@ log_level = 0
 
 !* Information of run time
 !* number of time steps for run
-intrun = 400
+intrun = 1000
 /
 
 &INIT_WRITE_TRAJ
@@ -163,7 +163,7 @@ seedtime =  1,
 
 !* seed only between tst1 and tst2
 tst1 = 1,
-tst2 = 3,
+tst2 = 10,
 /
 
 &INIT_TRACERS
@@ -176,17 +176,17 @@ l_tracers = .FALSE.
 
 &INIT_KILLZONES
 !* time limit for traj [days]
-timax = 365
+timax = 100000
 
 exitType = 1
 !* If exitType = 1: killing zone defined by a box
 !* IMPORTANT -> The maximum number of boxes than can be defined are 10
 !* ienw,iene are western and eastern i indices of killzone
 !* jens,jenn are southern and northern j indices of killzone
-ienw = 2
-iene = 116
-jens = 2
-jenn = 115
+ienw = 0, 0, 2, 116, 19
+iene = 118, 118, 2, 116, 20
+jens = 2, 115, 0, 0, 97
+jenn = 2, 115, 117, 117, 98
 /
 
 &INIT_POSTPROCESS
